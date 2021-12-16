@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <script src="http://code.jquery.com/jquery-2.1.3.min.js" data-semver="2.1.3" data-require="jquery@2.1.3"></script>
+        <link data-require="semantic-ui@1.11.4" data-semver="1.11.4" rel="stylesheet" href="//cdn.jsdelivr.net/semantic-ui/1.11.4/semantic.min.css" />
+        <script data-require="semantic-ui@1.11.4" data-semver="1.11.4" src="//cdn.jsdelivr.net/semantic-ui/1.11.4/semantic.min.js"></script>
+        <style>
+            ul {
+              list-style-type: none;
+              margin: 0;
+              padding: 0;
+              overflow: hidden;
+              background-color: #333;
+            }
+
+            li {
+              float: left;
+            }
+
+            li a {
+              display: block;
+              color: white;
+              text-align: center;
+              padding: 14px 16px;
+              text-decoration: none;
+            }
+
+            li a:hover {
+              background-color: #111;
+            }
+        </style>
+        <title>Register</title>
+    </head>
+    <body>
+        <br>
+        <br>
+
+       <div class="ui one column stackable centered page grid">
+            <div class="column eight wide">
+                <form class="ui form" action="register" method="post">
+                    {% csrf_token %}
+                    <div class="ui hidden divider"></div>
+                    <h1 class="ui dividing header">Register</h1>
+                    <div class="ui left icon input">
+                        <input name="fname" type="text" placeholder="First name">
+                        <i class="user icon"></i>
+                    </div><br><br>
+                    <div class="ui left icon input">
+                        <input name="lname" type="text" placeholder="Last name">
+                        <i class="user icon"></i>
+                    </div><br><br>
+                    <div class="ui left icon input">
+                        <input name="username" type="text" placeholder="Username">
+                        <i class="user icon"></i>
+                    </div><br><br>
+                    <div class="ui left icon input">
+                        <input name="password" placeholder="Password" type="password">
+                        <i class="lock icon"></i>
+                    </div><br><br>
+                    <div class="ui left icon input">
+                        <input name="repassword" placeholder="Retype Password" type="password">
+                        <i class="lock icon"></i>
+                    </div><br><br>
+                    <div class="ui left icon input">
+                        <input name="email" placeholder="Email" type="email">
+                        <i class="mail icon"></i>
+                    </div><br><br>
+                    <div class="field">
+                        Already an user? <a href="login_render">Login</a>
+                    </div>
+                    <div class="ui hidden divider"></div>
+                    <button type="submit" class="fluid ui primary button">Register</button>
+                </form>
+            </div>
+
+       </div>
+    </body>
+</html>
