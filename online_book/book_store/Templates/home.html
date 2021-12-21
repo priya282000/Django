@@ -1,82 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+{% extends 'base.html' %}
 
-
-        <style>
-            ul {
-              list-style-type: none;
-              margin: 0;
-              padding: 0;
-              overflow: hidden;
-              background-color: #333;
-              color: white;
-            }
-
-            li {
-              float: left;
-            }
-
-            li a {
-              display: block;
-              color: white;
-              text-align: center;
-              padding: 14px 16px;
-              text-decoration: none;
-            }
-
-            li a:hover {
-              background-color: #111;
-            }
-            .container{
-                margin-top: 8%;
-            }
-            .inner{
-                overflow: hidden;
-            }
-            .inner img{
-                transition: all 1.5s ease;
-            }
-            .inner:hover img{
-                transform: scale(1.5);
-            }
-            .card-img-top{
-                width: 15rem;
-                height: 15rem;
-            }
-                    #sidebar li.active > a{
-    font-weight: bold;
-    border:0 #CC0000 solid;
-    border-right-width:5px;
-}
-.nav-stacked{
-    width: 15rem;
-
-}
-.prev{
-    float: left
-}
-.next{
-    float: right
-}
-select{
-    width: 150px;
-    height: 35px;
-}
-        </style>
-        <title>Title</title>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+{% block content %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+           <ul class="navbar-nav">
               <li class="nav-item active">
                 <a class="nav-link" href="home"><b>Home</b></a>
               </li>
@@ -86,9 +16,8 @@ select{
               <li class="nav-item">
                 <a class="nav-link" href="#about">About</a>
               </li>
-
-                 <li class="btn-group">
-                <ul>
+              <li class="btn-group">
+                 <ul>
                     <form action="search_category">
                         <select name="category">
                             <option disabled="true" selected>Category</option>
@@ -100,107 +29,104 @@ select{
                         </select>
                         <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-search"></i></button>
                     </form>
-              </ul>
-            </li>
-            </ul>
+                 </ul>
+              </li>
+           </ul>
 
-            <ul class="navbar-nav ms-auto">
-
-                <form class="form-inline my-2 my-lg-0" action="search">
-                    {% csrf_token %}
+           <ul class="navbar-nav ms-auto">
+               <form class="form-inline my-2 my-lg-0" action="search">
+                  {% csrf_token %}
                   <div class="input-group">
                     <input type="search" class="form-control rounded" name="book_name" placeholder="Search book" aria-label="Search" aria-describedby="search-addon" />
                     <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-search"></i></button>
                   </div>
-                </form>
-                <form class="form-inline my-2 my-lg-0" action="cart">
-                    {% csrf_token %}
-                    <li class="nav-item active">
-<!--                        <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-cart3"></i></button>-->
-                        <button type="button" id="popcart" class="btn btn-secondary" data-html="true" data-toggle="tooltip" data-placement="left" title="Cart items">
-                          <i class="bi bi-cart3">(<span id="cart">0</span>)</i></button>
-                    </li>
-                </form>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">
-                        <i class="bi bi-power"></i></a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-
-         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="col-md-3" id="leftCol">
-
-                        <ul class="nav nav-stacked" id="sidebar">
-                            <li class="active">
-                                <a>Categories</a>
-                                <ul class="nav">
-                                    <li>
-                                        <a name="category" >Fiction</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a name="category">Technology</a>
-                                <ul class="nav">
-                                    <li>
-                                        <a name="category">Horror</a>
-                                    </li>
-                                    <li>
-                                        <a name="category">Historical</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a name="category">Science Fiction</a>
-                                <ul class="nav">
-                                    <li>
-                                        <a name="category">Suspense and Thriller</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a name="category">Fantasy</a>
-                                <ul class="nav">
-                                    <li>
-                                        <a name="category">Sports and Games</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a name="category">Community and Government</a>
-                                <ul class="nav">
-                                    <li>
-                                        <a name="category">Business</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a name="category">Food</a>
-                                <ul class="nav">
-                                    <li>
-                                        <a name="category">Novels</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a name="category">Romance</a>
-                                <ul class="nav">
-                                    <li>
-                                        <a name="category">Literature</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+               </form>
+               <form class="form-inline my-2 my-lg-0" action="cart">
+                  {% csrf_token %}
+                  <li class="nav-item active">
+                     <button type="button" id="popcart" class="btn btn-secondary" data-html="true" data-toggle="tooltip" data-placement="left" title="Cart items">
+                        <i class="bi bi-cart3">(<span id="cart">0</span>)</i>
+                     </button>
+                  </li>
+               </form>
+               <li class="nav-item active">
+                  <a class="nav-link" href="/">
+                       <i class="bi bi-power"></i>
+                  </a>
+               </li>
+           </ul>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="col-md-3" id="leftCol">
+                    <ul class="nav nav-stacked" id="sidebar">
+                        <li class="active">
+                            <a>Categories</a>
+                            <ul class="nav">
+                                <li>
+                                   <a name="category" >Fiction</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a name="category">Technology</a>
+                            <ul class="nav">
+                                <li>
+                                    <a name="category">Horror</a>
+                                </li>
+                                <li>
+                                    <a name="category">Historical</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a name="category">Science Fiction</a>
+                            <ul class="nav">
+                                <li>
+                                    <a name="category">Suspense and Thriller</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a name="category">Fantasy</a>
+                            <ul class="nav">
+                                <li>
+                                    <a name="category">Sports and Games</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a name="category">Community and Government</a>
+                            <ul class="nav">
+                                <li>
+                                    <a name="category">Business</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a name="category">Food</a>
+                            <ul class="nav">
+                                <li>
+                                    <a name="category">Novels</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a name="category">Romance</a>
+                            <ul class="nav">
+                                <li>
+                                    <a name="category">Literature</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-
-                <div class="col-md-8">
-                    <div class="row justify-content-center">
-                        {% for book in books%}
+            </div>
+            <div class="col-md-8">
+                <div class="row justify-content-center">
+                    {% for book in books%}
                         <div class="col-md-4 mx-50">
                             <div class="card shadow" style="width: 15rem; height: 25rem; margin:3%; padding:1%; top: 5px;">
                                   <div class="inner">
@@ -209,153 +135,52 @@ select{
                                   <div class="card-body">
                                     <h5 class="card-title" id="namepr{{book.id}}">{{book.title}}</h5>
                                     <p class="card-text">
-                                        - {{book.author}}<br>
-                                      <h6 class="cart-text" id="pricepr{{book.id}}"> Price: {{book.price}}</h6>
-                                        Category: {{book.category}}<br>
+                                       - {{book.author}}<br>
+                                       <h6 class="cart-text" id="pricepr{{book.id}}"> Price: {{book.price}}</h6>
+                                       Category: {{book.category}}<br>
                                     </p>
-                                      {% if book.quantity > 0 %}
-                                            <p class="text-success">In stock</p>
-                                            <span id="divpr{{book.id}}" class="divpr">
-                                            <button id="pr{{book.id}}" class="btn btn-dark cart" >Add to Cart</button>
-                                            </span>
-                                      {% else %}
-                                            <p class="text-danger">Out of stock</p>
-                                            <a class="btn btn-secondary" disabled>Add to Cart</a>
-                                        {% endif %}
+                                    {% if book.quantity > 0 %}
+                                      <p class="text-success">In stock</p>
+                                      <span id="divpr{{book.id}}" class="divpr">
+                                         <button id="pr{{book.id}}" class="btn btn-dark cart" >Add to Cart</button>
+                                      </span>
+                                    {% else %}
+                                      <p class="text-danger">Out of stock</p>
+                                      <a class="btn btn-secondary" disabled>Add to Cart</a>
+                                    {% endif %}
                                   </div>
                             </div>
                         </div>
-                        {% endfor %}
+                    {% endfor %}
 
-                            {% if books.has_previous %}
-                                <left><a href="{% url 'home' %}?page={{books.previous_page_number}}" class="prev"><button type="button" class="btn btn-dark"> < </button></a></left>
-                            {% endif %}
-                            {% if books.has_next %}
-                                <right><a href="{% url 'home' %}?page={{books.next_page_number}}" class="next"><button type="button" class="btn btn-dark" > > </button></a></right>
-                            {% endif %}
+                    {% if books.has_previous %}
+                        <left><a href="{% url 'home' %}?page={{books.previous_page_number}}" class="prev"><button type="button" class="btn btn-dark"> < </button></a></left>
+                    {% endif %}
+                    {% if books.has_next %}
+                        <right><a href="{% url 'home' %}?page={{books.next_page_number}}" class="next"><button type="button" class="btn btn-dark" > > </button></a></right>
+                    {% endif %}
 
-                    </div>
                 </div>
             </div>
         </div>
-
-         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-        crossorigin="anonymous"></script>
-    {% block js %}
-    <script>
-        <!--       To check if cart exists        -->
-        if (localStorage.getItem('cart') == null){
-            var cart = {};
-        }
-        else{
-            cart = JSON.parse(localStorage.getItem('cart'));
-            updateCart(cart);
-        }
-
-
-        <!--    To check if the item already exists in the cart    -->
-        $('.divpr').on('click', 'button.cart', function(){
-            var idstr = this.id.toString();
-            var cost=0;
-            if (cart[idstr] !=undefined){
-                quantity = cart[idstr][0] + 1;
-            }
-            else{
-                quantity = 1;
-                name=document.getElementById('name'+idstr).innerHTML;
-                price = document.getElementById('price'+idstr).innerHTML.slice(8,);
-                cart[idstr] = [quantity, name, price];
-            }
-            updateCart(cart);
-        });
-
-
-        <!--   Update contents in popover     -->
-        $('#popcart').popover();
-        updatePopover(cart);
-        function updatePopover(cart){
-            var popStr = "";
-            popStr = popStr + "<h5> Books in shopping cart</h5>";
-            var i = 1;
-            for (var item in cart){
-                popStr = popStr + "<b>" + i + "</b>. ";
-                popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0,19) + "Quantity: " + cart[item] + '<br>';
-                i=i+1;
-            }
-            popStr = popStr + "<a href='checkout'><button class='btn btn-dark' id='checkout'>Checkout</button></a> <button class='btn btn-dark' onclick='clearCart()' id='clearCart'>Clear cart</button>"
-            document.getElementById('popcart').setAttribute('data-content', popStr);
-            $('#popcart').popover('show');
-        }
-
-
-        <!--    clear cart details    -->
-        function clearCart(){
-            cart = JSON.parse(localStorage.getItem('cart'));
-            for (var item in cart){
-                document.getElementById('div' +item).innerHTML ='<button id="'+ item +'" class="btn btn-dark cart" >Add to Cart</button>'
-            }
-            localStorage.clear();
-            cart = {};
-            updateCart(cart);
-        }
-
-
-        <!--    update cart when items added/ removed    -->
-        function updateCart(cart){
-            var sum=0;
-            for (var item in cart){
-                sum = sum+cart[item][0];
-                document.getElementById('div'+item).innerHTML = "<button id='minus" + item+ "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0]+"</span><button id = 'plus" + item + "' class='btn btn-primary plus'>+</button>";
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            document.getElementById('cart').innerHTML = sum;
-            updatePopover(cart);
-        }
-
-
-        <!--   minus button function     -->
-        $('.divpr').on("click", "button.minus", function(){
-            a = this.id.slice(7, );
-            cart['pr' +a][0] = cart['pr' +a][0] -1;
-            cart['pr'+a][0] = Math.max(0, cart['pr'+a][0]);
-            document.getElementById('valpr'+a).innerHTML = cart['pr'+a][0];
-            updateCart(cart);
-        });
-
-
-        <!--   add button function     -->
-        $('.divpr').on("click", "button.plus", function(){
-            a = this.id.slice(6, );
-            cart['pr' +a][0] = cart['pr' +a][0] +1;
-            document.getElementById('valpr'+a).innerHTML = cart['pr'+a][0];
-            updateCart(cart);
-        });
-
-    </script>
-    {% endblock %}
+    </div>
     <div class="container" id="about">
         <center><p><h5>About Us</h5>
             Bookshop's platform and software is currently a beta version which is still undergoing development, testing, and improvements before its final release.
-
-Should you encounter any bugs, glitches, lack of functionality or other problems on Bookshop during our beta, please let us know immediately. Your help improving our site is greatly appreciated!
+            Should you encounter any bugs, glitches, lack of functionality or other problems on Bookshop during our beta, please let us know immediately. Your help improving our site is greatly appreciated!
         </p></center>
     </div>
     <center><div class="container" id="contact">
        <b> CONTACT INFO</b><br>
-        ADDRESS
-            11/82, Malviya Nagar Chennai,302017
-        EMAIL ID
-            books@onlinebooksstore.in
-        PHONE
-            +91 9784 708717
+        ADDRESS<br>
+            11/82, Malviya Nagar Chennai,302017<br>
+        EMAIL ID<br>
+            books@onlinebooksstore.in<br>
+        PHONE<br>
+            +91 9784 708717<br>
     </div></center>
-    </body>
-</html>
+{% endblock %}
+
+{% block js %}
+    <script src="static/js/home.js"></script>
+{% endblock %}

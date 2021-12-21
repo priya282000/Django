@@ -1,0 +1,55 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    color: white;
+}
+li {
+    float: left;
+}
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover {
+    background-color: #111;
+}
+.container{
+    margin-top: 8%;
+}
+.inner{
+    overflow: hidden;
+}
+.inner img{
+    transition: all 1.5s ease;
+}
+.inner:hover img{
+    transform: scale(1.5);
+}
+.card-img-top{
+    width: 15rem;
+    height: 15rem;
+}
+#sidebar li.active > a{
+    font-weight: bold;
+    border:0 #CC0000 solid;
+    border-right-width:5px;
+}
+.nav-stacked{
+    width: 15rem;
+}
+.prev{
+    float: left
+}
+.next{
+    float: right
+}
+select{
+    width: 150px;
+    height: 35px;
+}
