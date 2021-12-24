@@ -1,7 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
 class user_reg(models.Model):
     ''' Store user registration details '''
     first_name = models.CharField(max_length=100)
@@ -24,7 +23,4 @@ class book_details(models.Model):
         return self.title+" - "+self.author
 
 
-class cart_details(models.Model):
-    user_name = models.ForeignKey(user_reg, on_delete=models.CASCADE)
-    items = models.JSONField(default='{}')
 

@@ -1,22 +1,12 @@
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User, auth
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import user_reg, book_details
 from django.core.paginator import Paginator, EmptyPage
-from .forms import RegistrationForm
-
-
-def login_render(request):
-    ''' To render login page '''
-    return render(request, 'login.html')
+from .forms import RegistrationForm, LoginForm
 
 
 def home(request):
     ''' Add pagination '''
-
-    # if request.user.is_authenticated:
-    #     print(user.user_name)
     books = book_details.objects.all().order_by('title')
     p = Paginator(books, 3)
     page_num = request.GET.get('page', 1)
@@ -29,38 +19,21 @@ def home(request):
 
 def register(request):
     ''' Get details from register page and save in user_details '''
-    if(request.method == 'POST'):
-        form = RegistrationForm(request.POST)
+    form = RegistrationForm(request.POST or None)
+    if request.method == 'POST':
         if form.is_valid():
-            fname = form.cleaned_data['first_name']
-            lname = form.cleaned_data['last_name']
-            username = form.cleaned_data['user_name']
-            password = form.cleaned_data['password']
-            repassword = form.cleaned_data['repassword']
-            email = form.cleaned_data['email']
-            user_list = user_reg.objects.all()
-            for user in user_list:
-                if user.user_name == username:
-                    return HttpResponse("Username already taken!! Try different username!!")
-            reg = user_reg(first_name=fname, last_name=lname, user_name=username, password=password, email=email)
-            reg.save()
-            return render(request, 'login.html')
-
-    form = RegistrationForm
+            form.save()
+            return redirect('login')
     return render(request, 'register.html', {'form': form})
 
 
 def login(request):
     ''' To check if already exists and login to the website '''
-    username = request.POST['username']
-    password = request.POST['password']
-    user_list = user_reg.objects.all()
-    for user in user_list:
-        if user.user_name == username:
-            if user.password == password:
-                # return "%s?%s" % (redirect('home', args=username))
-                return redirect('home')
-    return HttpResponse("Incorrect username or password!!")
+    form = LoginForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            return redirect('home')
+    return render(request, 'login.html', {'form': form})
 
 
 def search(request):
