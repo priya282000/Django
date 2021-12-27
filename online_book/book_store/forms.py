@@ -1,6 +1,6 @@
 from django import forms
 from .models import user_reg, book_details
-import hashlib
+import re
 
 
 class RegistrationForm(forms.ModelForm):
@@ -19,8 +19,24 @@ class RegistrationForm(forms.ModelForm):
         cleaned_data = super().clean()
         pwd = self.cleaned_data['password']
         rpwd = self.cleaned_data['repassword']
+        reg = "^(?=.*[a-z])" \
+              "(?=.*[A-Z])" \
+              "(?=.*\d)" \
+              "(?=.*[@$!%*#?&])" \
+              "[A-Za-z\d@$!#%*?&]" \
+              "{6,20}$"
+        pat = re.compile(reg)
+        mat = re.search(pat, pwd)
         if pwd != rpwd:
             raise forms.ValidationError("Password Mismatched")
+        elif not mat:
+            raise forms.ValidationError(
+                "Password should have at least one number. "
+                "\nShould have at least one uppercase and one lowercase character. "
+                "\nShould have at least one special symbol."
+                "\nShould be between 6 to 20 characters long."
+            )
+
         return cleaned_data
 
     class Meta:
@@ -31,6 +47,7 @@ class RegistrationForm(forms.ModelForm):
 
 class BookDetails(forms.ModelForm):
     """ Book details form """
+
     class Meta:
         """ Save book details into book_details model """
         model = book_details

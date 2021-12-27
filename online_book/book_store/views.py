@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from .models import user_reg, book_details
 from django.core.paginator import Paginator, EmptyPage
 from .forms import RegistrationForm, LoginForm
+from django.contrib.auth.hashers import make_password
 
 
 def home(request):
@@ -22,7 +23,14 @@ def register(request):
     form = RegistrationForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            form.save()
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            user_name = request.POST['user_name']
+            password = request.POST['password']
+            pwd = make_password(password)
+            email = request.POST['email']
+            save_user = user_reg(first_name = first_name, last_name = last_name, user_name = user_name, password = pwd, email = email)
+            save_user.save()
             return redirect('login')
     return render(request, 'register.html', {'form': form})
 
